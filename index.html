@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101a17">
+  <meta name="description" content="Dream Marathon Spirit is a community built around the joy of running. Dream Marathon 1.0 is coming soon.">
+  <title>Dream Marathon Spirit — Run your own dream</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17231e;
+      --muted: #66716a;
+      --green: #c9fa54;
+      --green-dark: #244b36;
+      --paper: #f6f5ef;
+      --line: #e3e5dc;
+      --white: #fff;
+      --font-body: "DM Sans", sans-serif;
+      --font-display: "Manrope", sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    button { font: inherit; }
+    .page-shell { width: min(1440px, 100%); margin: 0 auto; overflow: hidden; }
+    .site-header {
+      height: 88px;
+      padding: 0 7.2%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 5;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -.045em;
+    }
+    .brand-mark {
+      width: 37px;
+      height: 37px;
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      background: var(--green);
+      border-radius: 50%;
+    }
+    .brand-mark svg { width: 21px; height: 21px; }
+    .brand-name { display: flex; flex-direction: column; line-height: 1.1; }
+    .brand-name span + span { font-size: 10px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; margin-top: 4px; }
+    .nav-links { display: flex; align-items: center; gap: 38px; }
+    .nav-links a {
+      color: #4e5952;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+    .nav-links a:hover { color: var(--green-dark); }
+    .nav-links .nav-cta {
+      color: var(--ink);
+      padding: 13px 19px;
+      border: 1px solid #cad0c5;
+      border-radius: 999px;
+    }
+    .nav-links .nav-cta:hover { border-color: var(--ink); }
+    .menu-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+    }
+    .menu-toggle svg { width: 20px; height: 20px; }
+
+    .hero {
+      min-height: 630px;
+      padding: 62px 7.2% 70px;
+      display: grid;
+      grid-template-columns: .92fr 1.08fr;
+      align-items: center;
+      gap: 4%;
+    }
+    .hero-copy { position: relative; z-index: 1; padding-bottom: 8px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 25px;
+      color: var(--green-dark);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 24px; height: 2px; background: #86b536; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 590px;
+      margin-bottom: 22px;
+      font-family: var(--font-display);
+      font-size: clamp(54px, 6.5vw, 88px);
+      line-height: .99;
+      letter-spacing: -.075em;
+      font-weight: 700;
+    }
+    h1 em { color: #739d32; font-style: normal; }
+    .hero-description {
+      max-width: 405px;
+      margin-bottom: 31px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+    .button {
+      min-height: 54px;
+      padding: 0 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      border-radius: 999px;
+      background: var(--green);
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .button:hover { background: #b9ed43; transform: translateY(-2px); }
+    .button svg { width: 16px; height: 16px; }
+    .hero-note {
+      margin: 19px 0 0;
+      color: #879088;
+      font-size: 11px;
+    }
+    .hero-visual {
+      min-height: 485px;
+      position: relative;
+      border-radius: 5px 100px 5px 5px;
+      background: #61775e url("https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1400&q=85") center 48% / cover no-repeat;
+    }
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(180deg, transparent 48%, rgba(11, 25, 17, .45));
+    }
+    .image-label {
+      position: absolute;
+      left: 25px;
+      bottom: 24px;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .image-stamp {
+      width: 124px;
+      height: 124px;
+      position: absolute;
+      top: 28px;
+      right: -28px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--green);
+      text-align: center;
+      transform: rotate(9deg);
+    }
+    .image-stamp span { max-width: 82px; font-family: var(--font-display); font-size: 13px; line-height: 1.35; font-weight: 800; }
+
+    .ticker {
+      min-height: 64px;
+      padding: 0 7.2%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      color: #47534b;
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .11em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .ticker svg { width: 16px; height: 16px; color: #82a93c; }
+
+    .about {
+      padding: 105px 7.2% 111px;
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 10%;
+      align-items: start;
+    }
+    .section-kicker {
+      margin-bottom: 16px;
+      color: #729638;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    h2 {
+      margin-bottom: 0;
+      font-family: var(--font-display);
+      font-size: clamp(35px, 4.2vw, 54px);
+      line-height: 1.1;
+      letter-spacing: -.06em;
+    }
+    .about-copy { padding-top: 8px; }
+    .about-copy > p {
+      max-width: 580px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.9;
+    }
+    .principles { margin-top: 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .principle { padding-top: 17px; border-top: 1px solid #cfd4c9; }
+    .principle-number { color: #789c40; font-size: 11px; font-weight: 700; }
+    .principle h3 { margin: 12px 0 7px; font-family: var(--font-display); font-size: 14px; letter-spacing: -.02em; }
+    .principle p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+
+    .event {
+      padding: 84px 7.2% 88px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 50px;
+      align-items: center;
+      background: #e9eddf;
+    }
+    .event h2 { max-width: 570px; margin-bottom: 16px; }
+    .event-copy { max-width: 550px; margin-bottom: 0; color: #59665d; font-size: 14px; line-height: 1.8; }
+    .event-action { text-align: center; }
+    .event-action .button { min-width: 205px; }
+    .event-action p { margin: 12px 0 0; color: #748078; font-size: 11px; }
+
+    .site-footer {
+      padding: 27px 7.2%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      color: #737d75;
+      font-size: 11px;
+    }
+    .footer-brand { color: var(--ink); font-family: var(--font-display); font-weight: 800; letter-spacing: -.03em; }
+    .footer-note { margin: 0; }
+    .back-top { color: #4d5a51; font-weight: 600; text-decoration: none; }
+    .back-top:hover { color: var(--green-dark); }
+
+    @media (min-width: 1441px) {
+      .hero { min-height: 690px; }
+    }
+    @media (max-width: 900px) {
+      .site-header { padding: 0 5%; }
+      .hero { padding: 50px 5% 60px; gap: 4%; }
+      .hero-visual { min-height: 420px; }
+      .about, .event { padding-left: 5%; padding-right: 5%; }
+      .about { gap: 6%; }
+      .ticker { padding: 0 5%; }
+      .site-footer { padding-left: 5%; padding-right: 5%; }
+    }
+    @media (max-width: 680px) {
+      .site-header { height: 72px; padding: 0 6%; }
+      .menu-toggle { display: grid; place-items: center; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 62px;
+        left: 5%;
+        right: 5%;
+        padding: 12px;
+        align-items: stretch;
+        gap: 0;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--paper);
+        box-shadow: 0 18px 45px rgba(23, 35, 30, .1);
+      }
+      .nav-links.is-open { display: flex; flex-direction: column; }
+      .nav-links a { padding: 14px 13px; }
+      .nav-links .nav-cta { margin-top: 5px; border-radius: 12px; text-align: center; }
+      .hero { padding: 45px 6% 53px; grid-template-columns: 1fr; gap: 39px; }
+      h1 { max-width: 470px; font-size: clamp(55px, 14vw, 78px); }
+      .hero-description { max-width: 440px; font-size: 14px; }
+      .hero-visual { min-height: 380px; margin-right: 12px; border-top-right-radius: 75px; }
+      .image-stamp { width: 103px; height: 103px; right: -17px; }
+      .image-stamp span { font-size: 11px; }
+      .ticker { min-height: 61px; gap: 10px; font-size: 10px; letter-spacing: .08em; }
+      .about { padding: 74px 6% 79px; grid-template-columns: 1fr; gap: 24px; }
+      h2 { font-size: clamp(36px, 9vw, 48px); }
+      .about-copy > p { font-size: 14px; }
+      .principles { gap: 13px; }
+      .principle h3 { font-size: 13px; }
+      .principle p { font-size: 11px; }
+      .event { padding: 65px 6% 69px; grid-template-columns: 1fr; gap: 29px; }
+      .event-action { text-align: left; }
+      .event-action p { margin-left: 4px; }
+      .site-footer { padding: 23px 6%; flex-wrap: wrap; font-size: 10px; }
+      .footer-note { order: 3; width: 100%; }
+    }
+    @media (max-width: 380px) {
+      .brand { gap: 8px; font-size: 14px; }
+      .principles { grid-template-columns: 1fr; }
+      .principle { display: grid; grid-template-columns: 32px 1fr; column-gap: 10px; }
+      .principle-number { grid-row: span 2; padding-top: 13px; }
+      .principle h3 { margin-top: 12px; }
+      .principle p { grid-column: 2; padding-bottom: 12px; }
+      .hero-visual { min-height: 310px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header" id="top">
+      <a class="brand" href="#top" aria-label="Dream Marathon Spirit home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M13.1 4.2a2.1 2.1 0 1 0 0-4.2 2.1 2.1 0 0 0 0 4.2ZM8.5 9.4l2.8-2.7 3.2 1.7 2.7.3-.2 2-3.4-.4-2.1-1.1-2.1 2.2-1.3 3.7-2-.7 1.4-4.2 1-1.1-1.6 1.1-2.7.3-.2-2 2.4-.3 2.1-1.8Zm4.3 3.9 2.3 2.3 2.2 4.4-1.8.9-2-4-2.3-2.2-1.8 2.8-1.2 4.2-1.9-.6 1.2-4.6 2.8-4.2 2.5 1Z" fill="currentColor" transform="translate(2 2) scale(.83)"/></svg>
+        </span>
+        <span class="brand-name"><span>Dream Marathon</span><span>Spirit</span></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="main-navigation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <nav class="nav-links" id="main-navigation" aria-label="Main navigation">
+        <a href="#spirit">Our spirit</a>
+        <a href="#event">The event</a>
+        <a class="nav-cta" href="https://forms.gle/8o8HJQmVtt72QehG7" target="_blank" rel="noopener noreferrer">Register your interest <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="big-news" aria-labelledby="news-title">
+        <div class="news-marker"><span class="news-pulse" aria-hidden="true"></span> Big news</div>
+        <div class="news-message">
+          <p class="news-kicker">The starting line is getting closer</p>
+          <h2 id="news-title">Dream Marathon 1.0 <span>is coming soon.</span></h2>
+        </div>
+        <a class="news-link" href="https://forms.gle/8o8HJQmVtt72QehG7" target="_blank" rel="noopener noreferrer">
+          Be part of it
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          <span class="news-spark news-spark--one" aria-hidden="true">✦</span>
+          <span class="news-spark news-spark--two" aria-hidden="true">✧</span>
+          <span class="news-spark news-spark--three" aria-hidden="true">✦</span>
+          <span class="news-spark news-spark--four" aria-hidden="true">✧</span>
+        </a>
+        <span class="news-index" aria-hidden="true">01 / 01</span>
+      </section>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">A community that moves together</p>
+          <h1 id="hero-title">Run your<br>own <em>dream.</em></h1>
+          <p class="hero-description">Every great journey starts with one step. Find your people, discover your pace, and be part of something bigger with Dream Marathon Spirit.</p>
+          <a class="button" href="https://forms.gle/8o8HJQmVtt72QehG7" target="_blank" rel="noopener noreferrer">
+            Join the community
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <p class="hero-note">Dream Marathon 1.0 is coming soon. Your story starts here.</p>
+        </div>
+        <figure class="hero-visual">
+          <img class="hero-photo" src="./photos/cover_2.png" alt="Dream Marathon Spirit artwork featuring three runners" fetchpriority="high">
+        </figure>
+      </section>
+
+      <div class="ticker" aria-label="Our belief: every step counts">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m12 2 2.1 6.6L21 6l-2.6 6.9L25 15l-6.6 2.1L21 24l-6.9-2.6L12 28l-2.1-6.6L3 24l2.6-6.9L-1 15l6.6-2.1L3 6l6.9 2.6L12 2Z" transform="translate(2 1) scale(.82)" fill="currentColor"/></svg>
+        Every step counts · Every runner belongs · Every dream begins somewhere
+      </div>
+
+      <section class="about" id="spirit" aria-labelledby="spirit-title">
+        <div>
+          <p class="section-kicker">More than a finish line</p>
+          <h2 id="spirit-title">The best miles<br>are shared.</h2>
+        </div>
+        <div class="about-copy">
+          <p>Dream Marathon Spirit is for the first-timers, the early risers, the come-backers, and everyone who simply loves to move. We believe a little encouragement can turn an ordinary run into something unforgettable.</p>
+          <div class="principles">
+            <article class="principle">
+              <span class="principle-number">01</span>
+              <h3>Find your pace</h3>
+              <p>Your journey is yours. Every pace is the right pace.</p>
+            </article>
+            <article class="principle">
+              <span class="principle-number">02</span>
+              <h3>Run together</h3>
+              <p>Good people make every step feel a little lighter.</p>
+            </article>
+            <article class="principle">
+              <span class="principle-number">03</span>
+              <h3>Keep showing up</h3>
+              <p>Small steps, steady effort, and a dream worth chasing.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="community-photos" aria-labelledby="photos-title">
+        <div class="photos-heading">
+          <div>
+            <p class="section-kicker">The people behind the miles</p>
+            <h2 id="photos-title">Our running spirit.</h2>
+          </div>
+          <p>Real moments, shared goals, and the joy of moving forward together.</p>
+        </div>
+        <div class="photo-grid">
+          <figure class="photo-card">
+            <div class="photo-frame">
+              <img src="./photos/cover_1.png" alt="Dream Marathon Spirit runner artwork at sunrise" loading="lazy">
+            </div>
+            <figcaption><span>01</span><span>Every dream starts with a step</span></figcaption>
+          </figure>
+          <figure class="photo-card">
+            <div class="photo-frame">
+              <img src="./photos/cover_3.png" alt="Dream Marathon participants celebrating their race together" loading="lazy">
+            </div>
+            <figcaption><span>02</span><span>Stronger together</span></figcaption>
+          </figure>
+          <figure class="photo-card">
+            <div class="photo-frame">
+              <img src="./photos/profile_pic_1.png" alt="Dream Marathon community runner" loading="lazy">
+            </div>
+            <figcaption><span>03</span><span>One runner. One more milestone.</span></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="event" id="event" aria-labelledby="event-title">
+        <div>
+          <p class="section-kicker">The first chapter</p>
+          <h2 id="event-title">Dream Marathon 1.0<br>is coming soon.</h2>
+          <p class="event-copy">Be part of the beginning. Share your details through our registration form and stay connected as we get ready to run together.</p>
+        </div>
+        <div class="event-action">
+          <a class="button" href="https://forms.gle/8o8HJQmVtt72QehG7" target="_blank" rel="noopener noreferrer">
+            Open registration form
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <p>Registration opens in Google Forms ↗</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="footer-brand" href="#top">Dream Marathon Spirit</a>
+      <p class="footer-note">Made for the miles ahead. Dream Marathon 1.0 · Coming soon</p>
+      <a class="back-top" href="#top">Back to top ↑</a>
+    </footer>
+  </div>
+  <script>
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navigation = document.querySelector("#main-navigation");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Open navigation" : "Close navigation");
+      navigation.classList.toggle("is-open", !isOpen);
+    });
+
+    navigation.addEventListener("click", (event) => {
+      if (event.target instanceof HTMLAnchorElement && window.matchMedia("(max-width: 680px)").matches) {
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation");
+        navigation.classList.remove("is-open");
+      }
+    });
+  </script>
+</body>
+</html>
