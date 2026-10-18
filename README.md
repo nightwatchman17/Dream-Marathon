@@ -4,7 +4,7 @@ A responsive community website for **Dream Marathon Spirit**, announcing Dream M
 
 ## Live website
 
-Once GitHub Pages finishes deploying, visit:
+Visit the live site:
 
 **https://nightwatchman17.github.io/Dream-Marathon/**
 
